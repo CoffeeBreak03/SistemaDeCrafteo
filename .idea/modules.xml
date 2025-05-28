@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PruebaIngredientesBasicos.iml" filepath="$PROJECT_DIR$/PruebaIngredientesBasicos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SistemaDeCrafteo.iml" filepath="$PROJECT_DIR$/SistemaDeCrafteo.iml" />
     </modules>
   </component>
 </project>
