@@ -18,6 +18,18 @@ public class Receta {
         this.mesaRequerida = mesaRequerida;
     }
 
+    public String getObjetoProducido() {
+        return objetoProducido;
+    }
+
+    public Objeto getMesaRequerida() {
+        return mesaRequerida;
+    }
+
+    public int getTiempoBase() {
+        return tiempoBase;
+    }
+
     public Map<Objeto, Integer> getIngredientes(){
         return ingredientes;
     }
@@ -85,6 +97,24 @@ public class Receta {
             resultado.addAll(n);
         }
         return resultado;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Objeto producido: ").append(objetoProducido).append("\n");
+        sb.append("Cantidad producida: ").append(cantidadProducida).append("\n");
+        sb.append("Tiempo de crafteo: ").append(tiempoBase).append("\n");
+        sb.append("Mesa requerida: ").append(mesaRequerida != null ? mesaRequerida.getNombre() : "Ninguna").append("\n");
+        sb.append("Ingredientes:\n");
+
+        for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
+            Objeto obj = entry.getKey();
+            int cantidad = entry.getValue();
+            sb.append("    - ").append(obj.getNombre()).append(": ").append(cantidad).append("\n");
+        }
+
+        return sb.toString();
     }
 }
 

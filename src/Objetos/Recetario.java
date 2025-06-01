@@ -22,4 +22,12 @@ public class Recetario {
     public List<Receta> getRecetas() {
         return recetas;
     }
+
+    public List<Receta> buscarRecetas(String objeto){
+        List<Receta> recetasObj;
+
+        recetasObj = recetas.stream().filter(r -> r.getObjetoProducido().equals(objeto)).toList();
+
+        return recetasObj;
+    }
 }
