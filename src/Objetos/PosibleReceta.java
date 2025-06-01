@@ -38,10 +38,10 @@ public class PosibleReceta {
 
     public void combinarConPosReceta(PosibleReceta otro){
         for(Map.Entry<Objeto, Integer> elemento : otro.ingredientes.entrySet()){
-            Objeto basico = elemento.getKey();
+            Objeto ingrediente = elemento.getKey();
             int cantidad = elemento.getValue();
 
-            this.ingredientes.merge(basico, cantidad, Integer::sum);
+            this.ingredientes.merge(ingrediente, cantidad, Integer::sum);
         }
 
         this.sumarTiempo(otro.tiempoCrafteo);
