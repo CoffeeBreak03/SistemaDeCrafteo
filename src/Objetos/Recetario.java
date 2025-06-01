@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Recetario {
     private List<Receta> recetas;
-
     public Recetario() {
         recetas = new ArrayList<>();
     }
