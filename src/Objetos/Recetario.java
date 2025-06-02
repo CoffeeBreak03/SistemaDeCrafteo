@@ -13,8 +13,6 @@ public class Recetario {
         this.recetas = recetas;
     }
 
-    public void cargarRecetario() throws Exception{/*carga desde archivo recetas.xml*/}
-
     public void agregarReceta(Receta receta){
         recetas.add(receta);
     }
@@ -23,11 +21,7 @@ public class Recetario {
         return recetas;
     }
 
-    public List<Receta> buscarRecetas(String objeto){
-        List<Receta> recetasObj;
-
-        recetasObj = recetas.stream().filter(r -> r.getObjetoProducido().equals(objeto)).toList();
-
-        return recetasObj;
+    public ArrayList<Receta> buscarRecetas(String objeto){
+        return new ArrayList<>(recetas.stream().filter(r -> r.getObjetoProducido().equals(objeto)).toList());
     }
 }

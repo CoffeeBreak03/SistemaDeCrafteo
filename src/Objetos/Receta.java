@@ -18,6 +18,9 @@ public class Receta {
         this.mesaRequerida = mesaRequerida;
     }
 
+    public Receta(){
+    }
+
     public String getObjetoProducido() {
         return objetoProducido;
     }
@@ -45,7 +48,7 @@ public class Receta {
             int cantRequerida = elemento.getValue();
 
             if (ingrediente.esBasico()) {
-                basicos.getIngredientes().put(ingrediente, cantRequerida);
+                basicos.getIngredientes().merge(ingrediente, cantRequerida, Integer::sum);
             } else {
                 //voy almacenando los basicos del ing. compuesto teniendo en cuenta que, si tiene mas de una receta,
                 //listaAux va a tener igual cantidad de posiblesRecetas
@@ -81,6 +84,26 @@ public class Receta {
         return posiblesRecetas;
     }
 
+    public void setObjetoProducido(String objetoProducido) {
+        this.objetoProducido = objetoProducido;
+    }
+
+    public void setCantidadProducida(int cantidadProducida) {
+        this.cantidadProducida = cantidadProducida;
+    }
+
+    public void setTiempoBase(int tiempoBase) {
+        this.tiempoBase = tiempoBase;
+    }
+
+    public void setMesaRequerida(Objeto mesaRequerida) {
+        this.mesaRequerida = mesaRequerida;
+    }
+
+    public void setIngredientes(Map<Objeto, Integer> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
     //Este metodo realiza, dadas dos lista/conjuntos M y N: M x N (como en mate. discreta)
     private ArrayList<PosibleReceta> combinarListas(ArrayList<PosibleReceta> m, ArrayList<PosibleReceta> n){
         ArrayList<PosibleReceta> resultado = new ArrayList<>();
@@ -111,7 +134,7 @@ public class Receta {
         for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
             Objeto obj = entry.getKey();
             int cantidad = entry.getValue();
-            sb.append("    - ").append(obj.getNombre()).append(": ").append(cantidad).append("\n");
+            sb.append("    - ").append(obj.getNombre()).append(" x ").append(cantidad).append("\n");
         }
 
         return sb.toString();

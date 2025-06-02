@@ -14,8 +14,6 @@ public class Inventario {
         this.objetos = objetos;
     }
 
-    public void cargarInventario() throws Exception {/*carga desde el archivo inventario.xml*/}
-
     public void agregarObjeto(Objeto objeto, int cant){
         objetos.put(objeto, cant);
     }
@@ -30,5 +28,19 @@ public class Inventario {
 
     public Map<Objeto, Integer> getObjetos() {
         return objetos;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder("Inventario:\n");
+
+
+        for(Map.Entry<Objeto, Integer> elem : objetos.entrySet()){
+            Objeto ing = elem.getKey();
+            int cant = elem.getValue();
+
+            str.append(ing.getNombre()).append(" x ").append(cant).append('\n');
+        }
+        return str.toString();
     }
 }

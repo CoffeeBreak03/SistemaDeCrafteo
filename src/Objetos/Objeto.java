@@ -29,12 +29,12 @@ public class Objeto {
         return recetas;
     }
 
-    public void agregarReceta(Receta receta){
-        recetas.add(receta);
-    }
-
     public String getNombre() {
         return nombre;
+    }
+
+    public void agregarReceta(Receta receta){
+        recetas.add(receta);
     }
 
     public boolean esBasico(){
