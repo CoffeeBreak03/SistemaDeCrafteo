@@ -76,7 +76,7 @@ public class PosibleReceta {
             sb.append(entry.getKey().getNombre()).append(" x ").append(entry.getValue()).append("\n");
         }
 
-        sb.append("\nTiempo de crafteo = ").append(tiempoCrafteo);
+        sb.append("\nTiempo de crafteo total= ").append(tiempoCrafteo);
 
         return sb.toString();
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<recetas>
+    <!-- Receta 1: Engranaje -->
+    <receta>
+        <objetoProducido>Engranaje</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>5</tiempoBase>
+        <mesaRequerida>Mesita</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Hierro" cantidad="2"/>
+        </ingredientes>
+    </receta>
+
+    <!-- Receta 2: Maquina -->
+    <receta>
+        <objetoProducido>Maquina</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>15</tiempoBase>
+        <mesaRequerida>Mesita</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Engranaje" cantidad="2"/>
+            <ingrediente nombre="Hierro" cantidad="1"/>
+        </ingredientes>
+    </receta>
+</recetas>
