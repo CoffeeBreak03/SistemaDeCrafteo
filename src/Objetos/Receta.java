@@ -29,6 +29,10 @@ public class Receta {
         return mesaRequerida;
     }
 
+    public int getCantidadProducida() {
+        return cantidadProducida;
+    }
+
     public int getTiempoBase() {
         return tiempoBase;
     }
@@ -39,7 +43,7 @@ public class Receta {
 
     public ArrayList<PosibleReceta> getIngredientesBasicos() {
         //Aca estaran las posibles combinaciones de ing. basicos en la medida que aparezcan, si no, sera una sola
-        ArrayList<PosibleReceta> posiblesRecetas = new ArrayList<PosibleReceta>();
+        ArrayList<PosibleReceta> posiblesRecetas = new ArrayList<>();
 
         PosibleReceta basicos = new PosibleReceta();
 
@@ -69,7 +73,7 @@ public class Receta {
                 //si tenia mas de una receta, voy a tener que hacer la combinacion entre las posibles recetas de ese
                 // compuesto y las que ya tenia.
                 if (listaAux.size() > 1) {
-                    posiblesRecetas = combinarListas(posiblesRecetas, listaAux);
+                    posiblesRecetas = Util.combinarListas(posiblesRecetas, listaAux);
                 } else {
                     basicos.combinarConPosReceta(listaAux.getFirst());
                 }
@@ -77,6 +81,7 @@ public class Receta {
         }
 
         basicos.sumarTiempo(this.tiempoBase);
+        basicos.agregarMesaRequerida(this.mesaRequerida);
 
         //agrego los basicos obtenidos a las posibles combinaciones de basicos. Si no habia, basicos sera la unica.
         basicos.combinarConListaPosReceta(posiblesRecetas);
@@ -104,30 +109,13 @@ public class Receta {
         this.ingredientes = ingredientes;
     }
 
-    //Este metodo realiza, dadas dos lista/conjuntos M y N: M x N (como en mate. discreta)
-    private ArrayList<PosibleReceta> combinarListas(ArrayList<PosibleReceta> m, ArrayList<PosibleReceta> n){
-        ArrayList<PosibleReceta> resultado = new ArrayList<>();
-
-        if(!m.isEmpty()) {
-            for(PosibleReceta posRecM: m){
-                for(PosibleReceta posRecN : n){
-                    PosibleReceta copiaM = posRecM.crearCopia();
-                    copiaM.combinarConPosReceta(posRecN);
-                    resultado.add(copiaM);
-                }
-            }
-        }else{
-            resultado.addAll(n);
-        }
-        return resultado;
-    }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Objeto producido: ").append(objetoProducido).append("\n");
         sb.append("Cantidad producida: ").append(cantidadProducida).append("\n");
-        sb.append("Tiempo de crafteo: ").append(tiempoBase).append("\n");
+        sb.append("Tiempo de crafteo: ").append(tiempoBase).append(" minutos\n");
         sb.append("Mesa requerida: ").append(mesaRequerida != null ? mesaRequerida.getNombre() : "Ninguna").append("\n");
         sb.append("Ingredientes:\n");
 

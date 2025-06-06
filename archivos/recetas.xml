@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <recetas>
-    <!-- Receta 1: Engranaje -->
+    <receta>
+        <objetoProducido>Mesita</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>2</tiempoBase>
+        <mesaRequerida>Ninguna</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Madera" cantidad="2"/>
+        </ingredientes>
+    </receta>
+
+    <receta>
+        <objetoProducido>Mesota</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>5</tiempoBase>
+        <mesaRequerida>Mesita</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Hierro" cantidad="1"/>
+            <ingrediente nombre="Madera" cantidad="2"/>
+        </ingredientes>
+    </receta>
+
+    <receta>
+        <objetoProducido>Mesota</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>7</tiempoBase>
+        <mesaRequerida>Mesita</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Madera" cantidad="1"/>
+        </ingredientes>
+    </receta>
+
     <receta>
         <objetoProducido>Engranaje</objetoProducido>
         <cantidadProducida>1</cantidadProducida>
@@ -11,7 +41,38 @@
         </ingredientes>
     </receta>
 
-    <!-- Receta 2: Maquina -->
+    <receta>
+        <objetoProducido>Engranaje</objetoProducido>
+        <cantidadProducida>3</cantidadProducida>
+        <tiempoBase>3</tiempoBase>
+        <mesaRequerida>Mesota</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Hierro" cantidad="2"/>
+        </ingredientes>
+    </receta>
+
+    <receta>
+        <objetoProducido>Circuito</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>4</tiempoBase>
+        <mesaRequerida>Mesita</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Placa" cantidad="1"/>
+            <ingrediente nombre="Cobre" cantidad="3"/>
+        </ingredientes>
+    </receta>
+
+    <receta>
+        <objetoProducido>Circuito</objetoProducido>
+        <cantidadProducida>1</cantidadProducida>
+        <tiempoBase>2</tiempoBase>
+        <mesaRequerida>Mesota</mesaRequerida>
+        <ingredientes>
+            <ingrediente nombre="Placa" cantidad="1"/>
+            <ingrediente nombre="Compuerta" cantidad="1"/>
+        </ingredientes>
+    </receta>
+
     <receta>
         <objetoProducido>Maquina</objetoProducido>
         <cantidadProducida>1</cantidadProducida>
@@ -20,6 +81,7 @@
         <ingredientes>
             <ingrediente nombre="Engranaje" cantidad="2"/>
             <ingrediente nombre="Hierro" cantidad="1"/>
+            <ingrediente nombre="Circuito" cantidad="1"/>
         </ingredientes>
     </receta>
 </recetas>

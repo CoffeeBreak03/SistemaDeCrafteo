@@ -24,6 +24,10 @@ public class HistorialDeCrafteo {
         return registros.get(indice);
     }
 
+    public RegistroCrafteo getUltimoRegistro(){
+        return registros.getLast();
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

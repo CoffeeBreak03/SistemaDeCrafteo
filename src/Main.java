@@ -1,23 +1,15 @@
-import Objetos.Objeto;
-import Objetos.PosibleReceta;
-import Objetos.Receta;
-import Objetos.SistemaDeCrafteo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import Objetos.*;
 
 public class Main {
     public static void main(String[] args) {
-        try {
-            SistemaDeCrafteo sistemaDeCrafteo= new SistemaDeCrafteo();
-            sistemaDeCrafteo.ingredientesNecesarios("Maquina");
-            sistemaDeCrafteo.ingBasicosNecesarios("Maquina");
-            System.out.println(sistemaDeCrafteo.getInventario());
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-            System.exit(1);
-        }
+        SistemaDeCrafteo sistemaDeCrafteo= new SistemaDeCrafteo();
+        String objeto = "Engranaje";
+        int cantACraftear = 4;
 
+        sistemaDeCrafteo.ingBasicosFaltantesParaCraftear(objeto, cantACraftear);
+        System.out.println();
+        sistemaDeCrafteo.cantidadCrafteable(objeto);
+        System.out.println();
+        sistemaDeCrafteo.craftearObjeto(objeto, cantACraftear);
     }
 }

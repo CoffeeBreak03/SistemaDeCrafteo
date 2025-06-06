@@ -1,17 +1,25 @@
 package Objetos;
 
 public class RegistroCrafteo {
-    private Objeto objetoCrafteado;
-    private int cantCrafteada;
+    private final Objeto objetoCrafteado;
+    private final int cantCrafteada;
 
     public RegistroCrafteo(Objeto objetoCrafteado, int cantCrafteada) {
         this.objetoCrafteado = objetoCrafteado;
         this.cantCrafteada = cantCrafteada;
     }
 
+    public Objeto getObjetoCrafteado() {
+        return objetoCrafteado;
+    }
+
+    public int getCantCrafteada() {
+        return cantCrafteada;
+    }
+
     @Override
     public String toString() {
-        return "objetoCrafteado= " + objetoCrafteado.getNombre() +
-                ", cantCrafteada= " + cantCrafteada;
+        return "objetoCrafteado: " + objetoCrafteado.getNombre() +
+                ", cantCrafteada: " + cantCrafteada;
     }
 }

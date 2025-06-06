@@ -2,19 +2,27 @@ package Objetos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 public class PosibleReceta {
     private HashMap<Objeto, Integer> ingredientes;
+    private HashSet<Objeto> mesasRequeridas;
     private int tiempoCrafteo;
+    private int cantProducida;
 
     public PosibleReceta(){
-        ingredientes = new HashMap<Objeto, Integer>();
+        ingredientes = new HashMap<>();
+        mesasRequeridas = new HashSet<>();
         tiempoCrafteo = 0;
     }
 
     public void agregarIng(Objeto ing, int cant){
         ingredientes.put(ing, cant);
+    }
+
+    public void agregarMesaRequerida(Objeto mesa){
+        mesasRequeridas.add(mesa);
     }
 
     public void sumarTiempo(int tiempo){
@@ -45,6 +53,7 @@ public class PosibleReceta {
         }
 
         this.sumarTiempo(otro.tiempoCrafteo);
+        this.mesasRequeridas.addAll(otro.mesasRequeridas);
     }
 
     public PosibleReceta crearCopia(){
@@ -68,15 +77,48 @@ public class PosibleReceta {
         return ingredientes;
     }
 
+    public HashSet<Objeto> getMesasRequeridas() {
+        return mesasRequeridas;
+    }
+
+    public int getCantProducida() {
+        return cantProducida;
+    }
+
+    public void setMesasRequeridas(HashSet<Objeto> mesasRequeridas) {
+        this.mesasRequeridas = mesasRequeridas;
+    }
+
+    public void setIngredientes(HashMap<Objeto, Integer> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public void setTiempoCrafteo(int tiempoCrafteo) {
+        this.tiempoCrafteo = tiempoCrafteo;
+    }
+
+    public void setCantProducida(int cantProducida) {
+        this.cantProducida = cantProducida;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
-            sb.append(entry.getKey().getNombre()).append(" x ").append(entry.getValue()).append("\n");
+        if(ingredientes.isEmpty()){
+            sb.append("No hay ingredientes faltantes.\n");
+        } else{
+            for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
+                sb.append(entry.getKey().getNombre()).append(" x ").append(entry.getValue()).append("\n");
+            }
         }
 
-        sb.append("\nTiempo de crafteo total= ").append(tiempoCrafteo);
+
+        sb.append("\nMesas requeridas: ");
+        for(Objeto mesa : mesasRequeridas){
+            sb.append("\n-").append(mesa.getNombre());
+        }
+        sb.append("\nTiempo de crafteo total: ").append(tiempoCrafteo).append(" minutos");
 
         return sb.toString();
     }
