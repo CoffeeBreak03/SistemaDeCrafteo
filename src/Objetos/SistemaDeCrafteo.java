@@ -14,8 +14,8 @@ public class SistemaDeCrafteo {
             inventario = new Inventario();
             recetario = new Recetario();
 
-            recetario = new CargadorDeRecetasXML("archivos/recetas.xml").cargar();
-            inventario = new CargadorDeInventarioXML("archivos/inventario.xml", recetario).cargar();
+//            recetario = new RecetaXML("archivos/recetas.xml").cargar();
+//            inventario = new InventarioXML("archivos/inventario.xml", recetario).cargar();
         }catch (Exception e){
             System.out.println("No se pudieron abrir los archivos");
         }
@@ -55,6 +55,5 @@ public class SistemaDeCrafteo {
     }
 
 
-
-
+    public Recetario getRecetario() {return recetario; }
 }

@@ -11,9 +11,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             SistemaDeCrafteo sistemaDeCrafteo= new SistemaDeCrafteo();
-            sistemaDeCrafteo.ingredientesNecesarios("Maquina");
-            sistemaDeCrafteo.ingBasicosNecesarios("Maquina");
+//            sistemaDeCrafteo.ingredientesNecesarios("Maquina");
+//            sistemaDeCrafteo.ingBasicosNecesarios("Maquina");
             System.out.println(sistemaDeCrafteo.getInventario());
+            System.out.println(sistemaDeCrafteo.getRecetario());
         }catch(Exception e){
             System.out.println(e.getMessage());
             System.exit(1);
