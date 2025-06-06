@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class Objeto {
+public abstract class Objeto {
     private String nombre;
     private ArrayList<Receta> recetas;
 

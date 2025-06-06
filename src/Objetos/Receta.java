@@ -2,39 +2,48 @@ package Objetos;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Receta {
-    private String objetoProducido;
+    private ObjetoIntermedio objetoProducido;
+    private Map<Objeto, Integer> ingredientes;
     private int cantidadProducida;
     private int tiempoBase;
-    private Objeto mesaRequerida;
-    private Map<Objeto, Integer> ingredientes;
 
-    public Receta(Map<Objeto, Integer> ingredientes, int tiempoBase, int cantidadProducida, Objeto mesaRequerida, String objetoProducido) {
-        this.ingredientes = ingredientes;
-        this.tiempoBase = tiempoBase;
-        this.cantidadProducida = cantidadProducida;
+    public Receta(ObjetoIntermedio objetoProducido, Map<Objeto, Integer> ingredientes, int cantidadProducida,
+                  int tiempoBase) {
         this.objetoProducido = objetoProducido;
-        this.mesaRequerida = mesaRequerida;
+        this.ingredientes = ingredientes;
+        this.cantidadProducida = cantidadProducida;
+        this.tiempoBase = tiempoBase;
     }
 
-    public Receta(){
-    }
-
-    public String getObjetoProducido() {
+    public ObjetoIntermedio getObjetoProducido() {
         return objetoProducido;
-    }
-
-    public Objeto getMesaRequerida() {
-        return mesaRequerida;
     }
 
     public int getTiempoBase() {
         return tiempoBase;
     }
 
-    public Map<Objeto, Integer> getIngredientes(){
+    public int getCantidadProducida() {
+        return cantidadProducida;
+    }
+
+    public Map<Objeto, Integer> getIngredientes() {
         return ingredientes;
+    }
+
+    @Override
+    public String toString() {
+        String ingredientesStr = ingredientes.entrySet().stream()
+                .map(e -> e.getKey() + " x" + e.getValue())
+                .collect(Collectors.joining(", "));
+
+        return "Receta{" +
+                "Produce: " + objetoProducido + " x" + cantidadProducida +
+                ", Ingredientes: [" + ingredientesStr + "]" +
+                ", Tiempo: " + tiempoBase + "}" ;
     }
 
     public ArrayList<PosibleReceta> getIngredientesBasicos() {
@@ -84,10 +93,6 @@ public class Receta {
         return posiblesRecetas;
     }
 
-    public void setObjetoProducido(String objetoProducido) {
-        this.objetoProducido = objetoProducido;
-    }
-
     public void setCantidadProducida(int cantidadProducida) {
         this.cantidadProducida = cantidadProducida;
     }
@@ -96,9 +101,9 @@ public class Receta {
         this.tiempoBase = tiempoBase;
     }
 
-    public void setMesaRequerida(Objeto mesaRequerida) {
-        this.mesaRequerida = mesaRequerida;
-    }
+//    public void setMesaRequerida(Objeto mesaRequerida) {
+//        this.mesaRequerida = mesaRequerida;
+//    }
 
     public void setIngredientes(Map<Objeto, Integer> ingredientes) {
         this.ingredientes = ingredientes;
@@ -122,22 +127,22 @@ public class Receta {
         return resultado;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Objeto producido: ").append(objetoProducido).append("\n");
-        sb.append("Cantidad producida: ").append(cantidadProducida).append("\n");
-        sb.append("Tiempo de crafteo: ").append(tiempoBase).append("\n");
-        sb.append("Mesa requerida: ").append(mesaRequerida != null ? mesaRequerida.getNombre() : "Ninguna").append("\n");
-        sb.append("Ingredientes:\n");
-
-        for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
-            Objeto obj = entry.getKey();
-            int cantidad = entry.getValue();
-            sb.append("    - ").append(obj.getNombre()).append(" x ").append(cantidad).append("\n");
-        }
-
-        return sb.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("Objeto producido: ").append(objetoProducido).append("\n");
+//        sb.append("Cantidad producida: ").append(cantidadProducida).append("\n");
+//        sb.append("Tiempo de crafteo: ").append(tiempoBase).append("\n");
+//        sb.append("Mesa requerida: ").append(mesaRequerida != null ? mesaRequerida.getNombre() : "Ninguna").append("\n");
+//        sb.append("Ingredientes:\n");
+//
+//        for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
+//            Objeto obj = entry.getKey();
+//            int cantidad = entry.getValue();
+//            sb.append("    - ").append(obj.getNombre()).append(" x ").append(cantidad).append("\n");
+//        }
+//
+//        return sb.toString();
+//    }
 }
 
