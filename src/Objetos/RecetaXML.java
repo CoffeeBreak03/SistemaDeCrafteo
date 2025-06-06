@@ -105,9 +105,9 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
             objProdElement.setAttribute("nombre", receta.getObjetoProducido().getNombre());
             recetaElement.appendChild(objProdElement);
 
-            // Ingredientes
-            Element ingredientesElement = doc.createElement("ingredientes");
-            recetaElement.appendChild(ingredientesElement);
+            // Ingredientes sin tag <ingredientes>
+            //Element ingredientesElement = doc.createElement("ingredientes");
+            //recetaElement.appendChild(ingredientesElement);
 
             for (Map.Entry<Objeto, Integer> entry : receta.getIngredientes().entrySet()) {
                 Element ingredienteElement = doc.createElement("ingrediente");
@@ -117,7 +117,7 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
                 ingredienteElement.setAttribute("tipo", obj instanceof ObjetoBasico ? "basico" : "intermedio");
                 ingredienteElement.setAttribute("cantidad", entry.getValue().toString());
 
-                ingredientesElement.appendChild(ingredienteElement);
+                recetaElement.appendChild(ingredienteElement);
             }
 
             // Cantidad producida
