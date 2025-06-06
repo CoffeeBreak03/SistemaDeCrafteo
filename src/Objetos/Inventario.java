@@ -41,4 +41,8 @@ public class Inventario {
         }
         return sb.toString();
     }
+
+    public void guardarInventario() {
+        new InventarioXML("out/inventario_salida.xml").guardar(objetos);
+    }
 }

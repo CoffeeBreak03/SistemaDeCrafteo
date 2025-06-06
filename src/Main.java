@@ -15,6 +15,9 @@ public class Main {
 //            sistemaDeCrafteo.ingBasicosNecesarios("Maquina");
             System.out.println(sistemaDeCrafteo.getInventario());
             System.out.println(sistemaDeCrafteo.getRecetario());
+
+            sistemaDeCrafteo.getInventario().guardarInventario();
+            sistemaDeCrafteo.getRecetario().guardarRecetario();
         }catch(Exception e){
             System.out.println(e.getMessage());
             System.exit(1);

@@ -34,4 +34,8 @@ public class Recetario {
         }
         return sb.toString();
     }
+
+    public void guardarRecetario() {
+        new RecetaXML("out/recetas_salida.xml").guardar(recetas);
+    }
 }
