@@ -40,10 +40,10 @@ public class Receta {
                 .map(e -> e.getKey() + " x" + e.getValue())
                 .collect(Collectors.joining(", "));
 
-        return "Receta{" +
-                "Produce: " + objetoProducido + " x" + cantidadProducida +
-                ", Ingredientes: [" + ingredientesStr + "]" +
-                ", Tiempo: " + tiempoBase + "}" ;
+        return "Receta [" + objetoProducido + " x" + cantidadProducida +
+                "]\nIngredientes: " + ingredientesStr +
+                "\nTiempo: " + tiempoBase + " segundos" +
+                "\n----------------------------------------";
     }
 
     public ArrayList<PosibleReceta> getIngredientesBasicos() {
