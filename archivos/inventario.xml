@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <inventario>
-    <objeto nombre="Hierro" cantidad="5"/>
-    <objeto nombre="Mesita" cantidad="1"/>
+    <!--objeto nombre="Mesita" cantidad="1"/-->
+    <objeto nombre="Hierro" cantidad="4"/>
+    <objeto nombre="Madera" cantidad="3"/>
+    <objeto nombre="Engranaje" cantidad="1"/>
+    <objeto nombre="Circuito" cantidad="1"/>
 </inventario>
