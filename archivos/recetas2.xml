@@ -2,34 +2,26 @@
 <recetas>
     <receta>
         <objetoProducido nombre="Tablones de Roble"/>
-        <ingredientes>
-            <ingrediente nombre="Madera de Roble" tipo="basico" cantidad="1"/>
-        </ingredientes>
+        <ingrediente nombre="Madera de Roble" tipo="basico" cantidad="1"/>
         <cantidadProducida>4</cantidadProducida>
         <tiempoBase>1</tiempoBase>
     </receta>
     <receta>
         <objetoProducido nombre="Palo"/>
-        <ingredientes>
-            <ingrediente nombre="Tablones de Roble" tipo="intermedio" cantidad="2"/>
-        </ingredientes>
+        <ingrediente nombre="Tablones de Roble" tipo="intermedio" cantidad="2"/>
         <cantidadProducida>4</cantidadProducida>
-        <tiempoBase>0</tiempoBase>
+        <tiempoBase>4</tiempoBase>
     </receta>
     <receta>
         <objetoProducido nombre="Mesa de Crafteo"/>
-        <ingredientes>
-            <ingrediente nombre="Tablones de Roble" tipo="intermedio" cantidad="4"/>
-        </ingredientes>
+        <ingrediente nombre="Tablones de Roble" tipo="intermedio" cantidad="4"/>
         <cantidadProducida>1</cantidadProducida>
         <tiempoBase>2</tiempoBase>
     </receta>
     <receta>
         <objetoProducido nombre="Hacha de Piedra"/>
-        <ingredientes>
-            <ingrediente nombre="Palo" tipo="intermedio" cantidad="2"/>
-            <ingrediente nombre="Piedra" tipo="basico" cantidad="3"/>
-        </ingredientes>
+        <ingrediente nombre="Palo" tipo="intermedio" cantidad="2"/>
+        <ingrediente nombre="Piedra" tipo="basico" cantidad="3"/>
         <cantidadProducida>1</cantidadProducida>
         <tiempoBase>5</tiempoBase>
     </receta>
