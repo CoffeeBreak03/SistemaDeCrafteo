@@ -21,7 +21,7 @@ public class InventarioXML extends ManejadorXML<Map<Objeto, Integer>> {
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         contenido = new StringBuilder();
         if (qName.equalsIgnoreCase("objeto")) {
-            String nombre = attributes.getValue("nombre");
+            String nombre = attributes.getValue("_nombre");
             String tipo = attributes.getValue("tipo");
             int cantidad = Integer.parseInt(attributes.getValue("cantidad"));
 
@@ -50,7 +50,7 @@ public class InventarioXML extends ManejadorXML<Map<Objeto, Integer>> {
             Objeto obj = entry.getKey();
             Element objetoElement = doc.createElement("objeto");
 
-            objetoElement.setAttribute("nombre", obj.getNombre());
+            objetoElement.setAttribute("_nombre", obj.getNombre());
             objetoElement.setAttribute("tipo", obj instanceof ObjetoBasico ? "basico" : "intermedio");
             objetoElement.setAttribute("cantidad", entry.getValue().toString());
 
