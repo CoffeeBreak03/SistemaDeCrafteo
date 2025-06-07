@@ -1,7 +1,8 @@
 package Objetos;
 
-import org.xml.sax.SAXException;
+import jakarta.xml.bind.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -17,10 +18,6 @@ public class SistemaDeCrafteo {
 
         recetario = new CargadorDeRecetasXML("archivos/recetas.xml").cargar();
         inventario = new CargadorDeInventarioXML("archivos/inventario.xml", recetario).cargar();
-    }
-
-    public Inventario getInventario() {
-        return inventario;
     }
 
     public void ingredientesNecesarios(String objeto){
@@ -149,7 +146,7 @@ public class SistemaDeCrafteo {
                 menorFaltanteDeObj = obtenerMinimoFaltante(objeto, i+1, inventario);
             }while(menorFaltanteDeObj.faltantes.getIngredientes().isEmpty());
 
-            System.out.println("Se pueden craftear hasta " + maximoCrafteado.historialActual.getUltimoRegistro().getCantCrafteada() +
+            System.out.println("Se pueden craftear hasta " + i +
                     ' ' + objeto + " en " + maximoCrafteado.faltantes.getTiempoCrafteo() + " minutos.");
         } else {
             System.out.println("El objeto no tiene recetas.");
@@ -178,12 +175,14 @@ public class SistemaDeCrafteo {
             System.out.println(inventario);
 
             inventario = invDespuesDeCraftear.estadoDeInv;
-            historialDeCrafteo = invDespuesDeCraftear.historialActual;
+            historialDeCrafteo.getRegistros().addAll(invDespuesDeCraftear.historialActual.getRegistros());
 
-            System.out.println("El crafteo tardo " + invDespuesDeCraftear.faltantes.getTiempoCrafteo() + " minutos."); //para la consigna solo necesitas esto
+            //para la consigna solo necesitas este print
+            //TODO: SI LOGRO LO DEL METODO DE FALTANTES, ARREGLAR ESTE PRINT
+            System.out.println("El crafteo tardo " + invDespuesDeCraftear.faltantes.getTiempoCrafteo() + " minutos, con un sobrante de " +
+                    (invDespuesDeCraftear.historialActual.getUltimoRegistro().getCantCrafteada() - cantACraftear) + ' ' + objeto + '.');
             System.out.println("Inventario despues de craftear: ");
             System.out.println(inventario);
-            System.out.println();
 
             System.out.println("Historial de crafteo: ");
             System.out.println(historialDeCrafteo);
@@ -193,6 +192,16 @@ public class SistemaDeCrafteo {
         }
     }
 
+    public void exportarInventarioEnXML() throws JAXBException {
+        JAXBContext context = JAXBContext.newInstance(Inventario.class);
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+
+        marshaller.marshal(inventario, new File("archivos/inventarioFinal.xml"));
+    }
+
+    //TODO: INTENTAR QUE, A TRAVES DEL HISTORIAL DE CRAFTEO, PUEDA DETECTAR SI SE ALCANZO LA CANT A CRAFTEAR SIN RESULTAR EN FALTANTES EN VEZ DE
+    // INTENTAR LITERALMENTE CRAFTEAR LA CANTIDAD PEDIDA
     //Lo unico que no puede hacer esta funcion es predecir, al elegir una receta por sobre otra al intentar craftear uno de los ing. faltantes,
     //si quedaria un sobrante de este ultimo que se pudiera utilizar para cubrir el crafteo de uno de los otros faltantes y abaratar el costo. Esto
     //depende del orden en el que esten los ingredientes a la hora de leer la receta y de la receta que se termine eligiendo para el ing. faltante,

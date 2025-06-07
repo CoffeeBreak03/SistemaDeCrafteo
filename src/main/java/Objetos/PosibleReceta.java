@@ -17,10 +17,6 @@ public class PosibleReceta {
         tiempoCrafteo = 0;
     }
 
-    public void agregarIng(Objeto ing, int cant){
-        ingredientes.put(ing, cant);
-    }
-
     public void agregarMesaRequerida(Objeto mesa){
         mesasRequeridas.add(mesa);
     }

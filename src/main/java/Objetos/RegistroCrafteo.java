@@ -1,5 +1,6 @@
 package Objetos;
 
+//TODO: CONSULTAR POR QUE RECOMIENDA RECORD CLASS
 public class RegistroCrafteo {
     private final Objeto objetoCrafteado;
     private final int cantCrafteada;

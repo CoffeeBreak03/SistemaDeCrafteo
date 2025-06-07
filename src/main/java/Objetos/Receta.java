@@ -1,6 +1,5 @@
 package Objetos;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Receta {
@@ -10,13 +9,13 @@ public class Receta {
     private Objeto mesaRequerida;
     private Map<Objeto, Integer> ingredientes;
 
-    public Receta(Map<Objeto, Integer> ingredientes, int tiempoBase, int cantidadProducida, Objeto mesaRequerida, String objetoProducido) {
-        this.ingredientes = ingredientes;
-        this.tiempoBase = tiempoBase;
-        this.cantidadProducida = cantidadProducida;
-        this.objetoProducido = objetoProducido;
-        this.mesaRequerida = mesaRequerida;
-    }
+//    public Receta(Map<Objeto, Integer> ingredientes, int tiempoBase, int cantidadProducida, Objeto mesaRequerida, String objetoProducido) {
+//        this.ingredientes = ingredientes;
+//        this.tiempoBase = tiempoBase;
+//        this.cantidadProducida = cantidadProducida;
+//        this.objetoProducido = objetoProducido;
+//        this.mesaRequerida = mesaRequerida;
+//    }
 
     public Receta(){
     }
