@@ -2,6 +2,6 @@
 <inventario>
     <objeto nombre="Madera" cantidad="3"/>
     <objeto nombre="Engranaje" cantidad="2"/>
-    <objeto nombre="Hierro" cantidad="5"/>
+    <objeto nombre="Hierro" cantidad="7"/>
     <objeto nombre="Circuito" cantidad="1"/>
 </inventario>

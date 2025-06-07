@@ -168,7 +168,7 @@ public class SistemaDeCrafteo {
             }
 
             invDespuesDeCraftear.estadoDeInv.agregarObjeto(
-                    new Objeto(objeto, recetario.buscarRecetas(objeto)), cantACraftear);
+                    new Objeto(objeto, recetario.buscarRecetas(objeto)), invDespuesDeCraftear.historialActual.getUltimoRegistro().getCantCrafteada());
 
             //no hacen falta los prints, solo necesitamos la asignacion, pero sirven para testear
             System.out.println("Inventario antes de craftear: ");
@@ -178,7 +178,7 @@ public class SistemaDeCrafteo {
             historialDeCrafteo.getRegistros().addAll(invDespuesDeCraftear.historialActual.getRegistros());
 
             //para la consigna solo necesitas este print
-            //TODO: SI LOGRO LO DEL METODO DE FALTANTES, ARREGLAR ESTE PRINT
+
             System.out.println("El crafteo tardo " + invDespuesDeCraftear.faltantes.getTiempoCrafteo() + " minutos, con un sobrante de " +
                     (invDespuesDeCraftear.historialActual.getUltimoRegistro().getCantCrafteada() - cantACraftear) + ' ' + objeto + '.');
             System.out.println("Inventario despues de craftear: ");
@@ -200,8 +200,6 @@ public class SistemaDeCrafteo {
         marshaller.marshal(inventario, new File("archivos/inventarioFinal.xml"));
     }
 
-    //TODO: INTENTAR QUE, A TRAVES DEL HISTORIAL DE CRAFTEO, PUEDA DETECTAR SI SE ALCANZO LA CANT A CRAFTEAR SIN RESULTAR EN FALTANTES EN VEZ DE
-    // INTENTAR LITERALMENTE CRAFTEAR LA CANTIDAD PEDIDA
     //Lo unico que no puede hacer esta funcion es predecir, al elegir una receta por sobre otra al intentar craftear uno de los ing. faltantes,
     //si quedaria un sobrante de este ultimo que se pudiera utilizar para cubrir el crafteo de uno de los otros faltantes y abaratar el costo. Esto
     //depende del orden en el que esten los ingredientes a la hora de leer la receta y de la receta que se termine eligiendo para el ing. faltante,
@@ -270,13 +268,8 @@ public class SistemaDeCrafteo {
                 for (PosibleFaltante menorFaltanteObj : menoresFaltantesPorObj) {
                     faltantesDeRec.faltantes.combinarConPosReceta(menorFaltanteObj.faltantes);
                 }
-            } else {
-                if((rec.getCantidadProducida() * crafteosNecesarios) - cantACraftear != 0)
-                    faltantesDeRec.estadoDeInv.agregarObjeto(
-                        new Objeto(objeto, recetario.buscarRecetas(objeto)),
-                        (rec.getCantidadProducida() * crafteosNecesarios) - cantACraftear
-                );
             }
+
             faltantesDeRec.faltantes.sumarTiempo(rec.getTiempoBase() * cantACraftear);
             listaPosiblesFaltantes.add(faltantesDeRec);
         }
@@ -299,10 +292,13 @@ public class SistemaDeCrafteo {
             }
 
             if(menorFaltanteDeObj.faltantes.getIngredientes().isEmpty()){
+                //primero se redondea la cantidad de crafteos que se necesitaron
+                int cantDeCrafteos = (cantACraftear + menorFaltanteDeObj.faltantes.getCantProducida() - 1) / menorFaltanteDeObj.faltantes.getCantProducida();
+
                 menorFaltanteDeObj.historialActual.agregarRegistro(
                         new Objeto(objeto, recetario.buscarRecetas(objeto)),
-                        menorFaltanteDeObj.faltantes.getCantProducida() *
-                                (cantACraftear + menorFaltanteDeObj.faltantes.getCantProducida() - 1) / menorFaltanteDeObj.faltantes.getCantProducida());
+                        menorFaltanteDeObj.faltantes.getCantProducida() * cantDeCrafteos
+                                );
             }
         }
         return menorFaltanteDeObj;

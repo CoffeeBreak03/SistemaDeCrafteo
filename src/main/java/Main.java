@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         SistemaDeCrafteo sistemaDeCrafteo= new SistemaDeCrafteo();
         String objeto = "Engranaje";
-        int cantACraftear = 3;
+        int cantACraftear = 9;
 
         sistemaDeCrafteo.ingBasicosFaltantesParaCraftear(objeto, cantACraftear);
         System.out.println();
