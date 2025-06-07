@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 
 public class InventarioXML extends ManejadorXML<Map<Objeto, Integer>> {
     private Objeto objetoActual;
-    private StringBuilder contenido;
+    //private StringBuilder contenido;
 
     public InventarioXML(String rutaArchivo) {
         super(rutaArchivo);
@@ -19,7 +19,7 @@ public class InventarioXML extends ManejadorXML<Map<Objeto, Integer>> {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        contenido = new StringBuilder();
+        //contenido = new StringBuilder();
         if (qName.equalsIgnoreCase("objeto")) {
             String nombre = attributes.getValue("_nombre");
             String tipo = attributes.getValue("tipo");
@@ -38,7 +38,7 @@ public class InventarioXML extends ManejadorXML<Map<Objeto, Integer>> {
 
     @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
-        contenido.append(ch, start, length);
+        //contenido.append(ch, start, length);
     }
 
     @Override
