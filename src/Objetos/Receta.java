@@ -126,7 +126,7 @@ public class Receta {
         for (Map.Entry<Objeto, Integer> entry : ingredientes.entrySet()) {
             Objeto obj = entry.getKey();
             int cantidad = entry.getValue();
-            sb.append("    - ").append(obj.getNombre()).append(" x ").append(cantidad).append("\n");
+            sb.append("    - ").append(obj).append(" x ").append(cantidad).append("\n");
         }
 
         return sb.toString();

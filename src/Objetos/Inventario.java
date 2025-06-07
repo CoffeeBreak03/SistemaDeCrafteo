@@ -41,7 +41,7 @@ public class Inventario {
             Objeto ing = elem.getKey();
             int cant = elem.getValue();
 
-            str.append(ing.getNombre()).append(" x ").append(cant).append('\n');
+            str.append(ing).append(" x ").append(cant).append('\n');
         }
         return str.toString();
     }
