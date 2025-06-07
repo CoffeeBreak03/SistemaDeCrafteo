@@ -15,7 +15,7 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
     private Receta recetaActual;
     private ObjetoIntermedio objetoProducidoActual;
     private Map<Objeto, Integer> ingredientesActuales;
-    private StringBuilder contenido;
+    //private StringBuilder contenido; //ya no es necesario.
 
     public RecetaXML(String rutaArchivo) {
         super(rutaArchivo);
@@ -24,18 +24,19 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-        contenido = new StringBuilder(); // Limpiar el contenido al inicio de cada elemento
+        //contenido = new StringBuilder(); // Limpiar el contenido al inicio de cada elemento
 
         if (qName.equalsIgnoreCase("receta")) {
             ingredientesActuales = new HashMap<>(); // Inicializar un nuevo mapa para cada receta
-            recetaActual = null; // Resetear la receta actual
-            objetoProducidoActual = null; // Resetear el objeto producido
         } else if (qName.equalsIgnoreCase("objetoProducido")) {
-            String nombre = attributes.getValue("nombre");
+            String nombre = attributes.getValue("_nombre");
+            int cantidadProducida = Integer.parseInt(attributes.getValue("cantidad"));
+            int tiempoBase = Integer.parseInt(attributes.getValue("tiempo"));
             // El objetoProducido de una receta SIEMPRE es ObjetoIntermedio
-            objetoProducidoActual = new ObjetoIntermedio(nombre);
+            this.objetoProducidoActual = new ObjetoIntermedio(nombre);
+            this.recetaActual = new Receta(objetoProducidoActual, ingredientesActuales, cantidadProducida, tiempoBase);
         } else if (qName.equalsIgnoreCase("ingrediente")) {
-            String nombre = attributes.getValue("nombre");
+            String nombre = attributes.getValue("_nombre");
             String tipo = attributes.getValue("tipo");
             int cantidad = Integer.parseInt(attributes.getValue("cantidad"));
 
@@ -47,30 +48,19 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
             } else {
                 throw new SAXException("Tipo de objeto desconocido para ingrediente: " + tipo);
             }
-            ingredientesActuales.put(ingrediente, cantidad);
+            if (ingredientesActuales != null) {
+                ingredientesActuales.put(ingrediente, cantidad);
+            } else {
+                throw new SAXException("Receta incompleta encontrada.");
+            }
         }
     }
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        String textoElemento = contenido.toString().trim();
+        //String textoElemento = contenido.toString().trim();
 
-        if (qName.equalsIgnoreCase("cantidadProducida")) {
-            int cantidad = Integer.parseInt(textoElemento);
-            if(recetaActual == null) {
-                recetaActual = new Receta(objetoProducidoActual, ingredientesActuales, cantidad, 0);
-            } else { // Si ya tenemos una instancia parcial, la actualizamos
-                recetaActual = new Receta(objetoProducidoActual, ingredientesActuales, cantidad, recetaActual.getTiempoBase());
-            }
-        } else if (qName.equalsIgnoreCase("tiempoBase")) {
-            int tiempo = Integer.parseInt(textoElemento);
-            if(recetaActual == null) {
-                // Esto no debería ocurrir si el XML está bien formado y cantidadProducida viene antes de tiempoBase
-                throw new SAXException("Error: tiempoBase encontrado antes que cantidadProducida.");
-            } else {
-                recetaActual = new Receta(objetoProducidoActual, ingredientesActuales, recetaActual.getCantidadProducida(), tiempo);
-            }
-        } else if (qName.equalsIgnoreCase("receta")) {
+        if (qName.equalsIgnoreCase("receta")) {
             // Cuando termina la etiqueta <receta>, la receta ya debería estar completa
             if (recetaActual != null) {
                 datos.add(recetaActual);
@@ -88,7 +78,7 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
     public void characters(char[] ch, int start, int length) throws SAXException {
         // Solo acumular contenido para los elementos que tienen texto interno
         // como <cantidadProducida> y <tiempoBase>
-        contenido.append(ch, start, length);
+        //contenido.append(ch, start, length);
     }
 
     @Override
@@ -102,7 +92,9 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
 
             // Objeto producido
             Element objProdElement = doc.createElement("objetoProducido");
-            objProdElement.setAttribute("nombre", receta.getObjetoProducido().getNombre());
+            objProdElement.setAttribute("_nombre", receta.getObjetoProducido().getNombre());
+            objProdElement.setAttribute("cantidad", Integer.toString(receta.getCantidadProducida()));
+            objProdElement.setAttribute("tiempo", Integer.toString(receta.getTiempoBase()));
             recetaElement.appendChild(objProdElement);
 
             // Ingredientes sin tag <ingredientes>
@@ -113,7 +105,7 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
                 Element ingredienteElement = doc.createElement("ingrediente");
                 Objeto obj = entry.getKey();
 
-                ingredienteElement.setAttribute("nombre", obj.getNombre());
+                ingredienteElement.setAttribute("_nombre", obj.getNombre());
                 ingredienteElement.setAttribute("tipo", obj instanceof ObjetoBasico ? "basico" : "intermedio");
                 ingredienteElement.setAttribute("cantidad", entry.getValue().toString());
 
@@ -121,14 +113,14 @@ public class RecetaXML extends ManejadorXML<List<Receta>> {
             }
 
             // Cantidad producida
-            Element cantElement = doc.createElement("cantidadProducida");
-            cantElement.appendChild(doc.createTextNode(String.valueOf(receta.getCantidadProducida())));
-            recetaElement.appendChild(cantElement);
+            //Element cantElement = doc.createElement("cantidadProducida");
+            //cantElement.appendChild(doc.createTextNode(String.valueOf(receta.getCantidadProducida())));
+            //recetaElement.appendChild(cantElement);
 
             // Tiempo base
-            Element tiempoElement = doc.createElement("tiempoBase");
-            tiempoElement.appendChild(doc.createTextNode(String.valueOf(receta.getTiempoBase())));
-            recetaElement.appendChild(tiempoElement);
+            //Element tiempoElement = doc.createElement("tiempoBase");
+            //tiempoElement.appendChild(doc.createTextNode(String.valueOf(receta.getTiempoBase())));
+            //recetaElement.appendChild(tiempoElement);
         }
     }
 }
