@@ -38,4 +38,15 @@ public class Recetario {
     public void guardarRecetario() {
         new RecetaXML("out/recetas_salida.xml").guardar(recetas);
     }
+
+    public Receta buscarRecetaPorObjetoProducido(Objeto objetoDeseado) {
+        // Si 'recetas' es una lista:
+        for (Receta receta : recetas) {
+            // Asegúrate de que Objeto.equals() y hashCode() estén bien implementados
+            if (receta.getObjetoProducido().equals(objetoDeseado)) {
+                return receta;
+            }
+        }
+        return null; // No se encontró la receta
+    }
 }

@@ -15,7 +15,11 @@ public class Inventario {
     }
 
     public void agregarObjeto(Objeto objeto, int cant){
-        objetos.put(objeto, cant);
+        objetos.merge(objeto, cant, Integer::sum);
+    }
+
+    public void agregarObjeto(Objeto objeto){
+        agregarObjeto(objeto, 1);
     }
 
     public void quitarObjeto(Objeto objeto){
@@ -32,17 +36,44 @@ public class Inventario {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("=== INVENTARIO ===\n");
-        for (Map.Entry<Objeto, Integer> entry : objetos.entrySet()) {
-            sb.append(entry.getKey())  // Usa el toString() de Objeto
-                    .append(" x")
-                    .append(entry.getValue())
-                    .append("\n");
+        StringBuilder str = new StringBuilder("=== INVENTARIO ===\n");
+        for(Map.Entry<Objeto, Integer> elem : objetos.entrySet()){
+            Objeto ing = elem.getKey();
+            int cant = elem.getValue();
+
+            str.append(ing.getNombre()).append(" x ").append(cant).append('\n');
         }
-        return sb.toString();
+        return str.toString();
     }
 
     public void guardarInventario() {
         new InventarioXML("out/inventario_salida.xml").guardar(objetos);
+    }
+
+    public boolean tieneSuficientes(Objeto ingrediente, int cantidadRequerida) {
+        return objetos.getOrDefault(ingrediente, 0) >= cantidadRequerida;
+    }
+
+    public void consumirObjeto(Objeto ingrediente, int cantidadRequerida) {
+        if (!objetos.containsKey(ingrediente)) {
+            throw new IllegalArgumentException("El objeto '" + ingrediente.getNombre() + "' no se encuentra en el inventario.");
+        }
+
+        Integer cantidadActual = objetos.get(ingrediente);
+
+        if (cantidadActual < cantidadRequerida) {
+            throw new IllegalArgumentException("No hay suficiente cantidad de '" + ingrediente.getNombre() + "'. Disponible: " + cantidadActual + ", Requerido: " + cantidadRequerida);
+        }
+
+        // Calcula la nueva cantidad
+        int nuevaCantidad = cantidadActual - cantidadRequerida;
+
+        if (nuevaCantidad <= 0) {
+            // Si la cantidad llega a cero o menos, se elimina el objeto del mapa
+            objetos.remove(ingrediente);
+        } else {
+            // Si la cantidad es positiva, se actualiza en el mapa
+            objetos.put(ingrediente, nuevaCantidad);
+        }
     }
 }
